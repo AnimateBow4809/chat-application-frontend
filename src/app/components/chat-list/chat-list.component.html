@@ -1,0 +1,43 @@
+<div class="chat-list">
+  <div class="search-bar">
+      <input type="text" placeholder="Search chats" #searchInput (input)="searchChats(searchInput.value)">
+      <button (click)="searchChats(searchInput.value)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg>
+      </button>
+  </div>
+  
+  <div *ngIf="searchMode">
+    <div *ngIf="chatsSearch.length > 0">
+      <h2>Search Results for Chats:</h2>
+      <div *ngFor="let chat of chatsSearch">
+          <div (click)="handleChatClick(chat)" class="chat-item">
+              <div class="avatar" [style.backgroundColor]="getRandomColor()"></div>
+              <span>{{chat.name}}</span>
+          </div>
+      </div>
+    </div>
+    
+    <div *ngIf="userSearch.length > 0">
+      <h2>Search Results for Users:</h2>
+      <div *ngFor="let user of userSearch">
+          <div (click)="handleUserClick(user)" class="chat-item">
+              <div class="avatar" [style.backgroundColor]="getRandomColor()"></div>
+              <span>{{user.userName}}</span>
+          </div>
+      </div>
+    </div>
+    
+    <button (click)="exitSearchMode()">Exit Search Mode</button>
+  </div>
+  
+  <div *ngIf="!searchMode">
+    <div *ngFor="let chat of user.chats">
+        <div (click)="handleChatClick(chat)" class="chat-item">
+            <div class="avatar" [style.backgroundColor]="getRandomColor()"></div>
+            <span>{{chat.name}}</span>
+        </div>
+    </div>
+  </div>
+</div>
